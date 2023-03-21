@@ -15,45 +15,82 @@ class _DetailPageState extends State<DetailPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: Text("Detail Page"),
-          ),
-          body: Center(
-            child: Column(
-              children: [
-                Text("Detail Page ${widget.coffeeReceive.name}"),
-                Text(widget.coffeeReceive.description),
-                Image.network(widget.coffeeReceive.imageUrls[0]),
-                Text(widget.coffeeReceive.price),
-                Text(widget.coffeeReceive.nutrition),
-                Text('ingredients'),
-                Text(widget.coffeeReceive.ingredients[0]),
-                Text(widget.coffeeReceive.reviewAverage),
-                Text(widget.coffeeReceive.reviewCount),
-                // OutlinedButton(
-                //   child: Text('Kembali'),
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                // ),
-                // ElevatedButton(
-                //   child: Text('Pindah Screen tanpa Stack'),
-                //   onPressed: () {
-                //     Navigator.pushReplacement(context,
-                //         MaterialPageRoute(builder: (context) {
-                //       return HomePage();
-                //     }));
-                //   },
-                // ),
-                ElevatedButton(
-                  onPressed: () {
-                    _launchURL(widget.coffeeReceive.linkStore);
-                  },
-                  child: Text("Go to Store"),
-                ),
-              ],
+        appBar: AppBar(
+          title: Text(widget.coffeeReceive.name),
+        ),
+        body: Column(
+          children: [
+            Text(
+              "Detail Page ${widget.coffeeReceive.name}",
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-          )),
+            ListView.builder(
+              itemBuilder: (context, index) {
+                final dataCoffee = coffeeList[index];
+                return Card(
+                  child: Row(
+                    children: [
+                      Image.network(dataCoffee.imageUrls[index],
+                          width: 80, height: 80),
+                    ],
+                  ),
+                );
+              },
+              itemCount: widget.coffeeReceive.imageUrls.length,
+            ),
+            Text(
+              "Coffee Name:  ${widget.coffeeReceive.name}",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text("Description : ${widget.coffeeReceive.description}"),
+            Text(
+              'ingredients',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            ListView.builder(
+              itemBuilder: (context, index) {
+                final dataCoffee = coffeeList[index];
+                return Card(
+                  child: Row(
+                    children: [
+                      Text(widget.coffeeReceive.ingredients[index]),
+                    ],
+                  ),
+                );
+              },
+              itemCount: widget.coffeeReceive.imageUrls.length,
+            ),
+            Text("Nutrition : ${widget.coffeeReceive.nutrition}"),
+            Text(
+                "Review : ${widget.coffeeReceive.reviewAverage} of ${widget.coffeeReceive.reviewCount}"),
+            Text(
+              "Price ${widget.coffeeReceive.price}",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            // OutlinedButton(
+            //   child: Text('Kembali'),
+            //   onPressed: () {
+            //     Navigator.pop(context);
+            //   },
+            // ),
+            // ElevatedButton(
+            //   child: Text('Pindah Screen tanpa Stack'),
+            //   onPressed: () {
+            //     Navigator.pushReplacement(context,
+            //         MaterialPageRoute(builder: (context) {
+            //       return HomePage();
+            //     }));
+            //   },
+            // ),
+            ElevatedButton(
+              onPressed: () {
+                _launchURL(widget.coffeeReceive.linkStore);
+              },
+              child: Text("Go to Store"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
